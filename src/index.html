@@ -31,7 +31,7 @@
         <div id="txtn" class="bubble"></div>
       </div>
       <div class="write">
-          <a href="javascript:void(2020);" class="write-link attach" onclick="alert('В разработке')"></a>
+          <!--<a href="javascript:void(2020);" class="write-link attach" onclick="alert('В разработке')"></a>-->
           <input type="text" id="msginput">
           <a href="javascript:void(2020);" class="write-link send" onclick="requp()"></a>
           <a href="javascript:void(2020);" class="write-link smiley" onclick="alert('В разработке')"></a>
@@ -41,11 +41,13 @@
       const request = require('request');
       function popup () {
         nameup.style.display = "block";
+        msginput.disabled = true;
       }
       function userbtn () {
         if (tname.value.length >= 3 && tname.value.length <= 15) {
           nameup.style.display = "none";
           localStorage.setItem('name', tname.value);
+          msginput.disabled = false;
         } else {
           alert('Поле заполнено неверно, или не заполнено!');
         }
@@ -95,10 +97,14 @@
         let user = encodeURIComponent(localStorage.getItem('name'));
         let msg = encodeURIComponent(msginput.value);
         msg = msg.replace(/ /g, '%20');
-        request('https://chatapi2.herokuapp.com/1/write/' + user + '/' + msg, function (error, response, body) {
-          //console.clear();
-          console.log('error:', error);
-        });
+        if (msg != "") {
+          request('https://chatapi2.herokuapp.com/1/write/' + user + '/' + msg, function (error, response, body) {
+            //console.clear();
+            console.log('error:', error);
+          });
+        } else {
+          console.log('Пусто =)');
+        }
         msginput.value = "";
       }
       // добавление сообщений
