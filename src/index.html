@@ -20,6 +20,11 @@
       </div>
     </div>
 
+    <div class="popup" id="nameup">
+      <input type="text" id="tname" placeholder="Всеволод" maxlength="15" minlength="3">
+      <button id="username" onclick="userbtn()">Запомнить</button>
+    </div>
+
     <div class="container">
       <div class="top"></div>
       <div class="chat" id="box">
@@ -34,6 +39,17 @@
     </div>
     <script>
       const request = require('request');
+      function popup () {
+        nameup.style.display = "block";
+      }
+      function userbtn () {
+        if (tname.value.length >= 3 && tname.value.length <= 15) {
+          nameup.style.display = "none";
+          localStorage.setItem('name', tname.value);
+        } else {
+          alert('Поле заполнено неверно, или не заполнено!');
+        }
+      }
       // старт, и проверка сервера
       function reqstart () {
         request('https://chatapi2.herokuapp.com/1', function (error, response, body) {
@@ -48,6 +64,12 @@
             alert('О чёрт... Что-то пошло не так!');
           }
         });
+        let test = localStorage.getItem('name');
+        if (test == null) {
+          popup();
+        } else {
+          console.log('👍');
+        }
       }
       // чтение
       function reqread () {
@@ -63,20 +85,21 @@
           }
           // обработка сообщения
           body = body.replace(/\n/g, '</div><div id="txtn" class="bubble">');
+          body = body.replace(/;/g, ' : ');
           chatup(body);
         });
         setTimeout(reqread, 500);
       }
       // отправка
       function requp () {
-        //добавить получение ника с записью в localstorage
-        let user = encodeURIComponent('User457')
+        let user = encodeURIComponent(localStorage.getItem('name'));
         let msg = encodeURIComponent(msginput.value);
         msg = msg.replace(/ /g, '%20');
         request('https://chatapi2.herokuapp.com/1/write/' + user + '/' + msg, function (error, response, body) {
           //console.clear();
           console.log('error:', error);
         });
+        msginput.value = "";
       }
       // добавление сообщений
       function chatup (msg) {
