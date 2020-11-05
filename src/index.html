@@ -55,13 +55,17 @@
           //console.clear();
           console.log('error:', error);
           console.log('statusCode:', response && response.statusCode);
-          if (txtn) {
-            txtn.remove();
+          //if (txtn) {
+          //  txtn.remove();
+          //}
+          while (box.firstChild) {
+            box.removeChild(box.lastChild);
           }
           // обработка сообщения
+          body = body.replace(/\n/g, '</div><div id="txtn" class="bubble">');
           chatup(body);
         });
-        setTimeout(reqread, 300);
+        setTimeout(reqread, 500);
       }
       // отправка
       function requp () {
@@ -76,8 +80,8 @@
       }
       // добавление сообщений
       function chatup (msg) {
-        var upmsg = '<div id="txtn" class="bubble">' + msg + '</div>';
-        box.insertAdjacentHTML("afterend", upmsg);
+        var upmsg = '<div id="txtn" class="bubble">' + msg + "</div>";
+        box.insertAdjacentHTML("beforeend", upmsg);
       }
       //start
       reqstart();
