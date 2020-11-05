@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
+    <!--<script src="chat.js"></script>-->
+  </head>
+  <body>
+    <div class="waveWrapper waveAnimation">
+      <div class="waveWrapperInner bgTop">
+        <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+      </div>
+      <div class="waveWrapperInner bgMiddle">
+        <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+      </div>
+      <div class="waveWrapperInner bgBottom">
+        <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="top"></div>
+      <div class="chat" id="box">
+        <div id="txtn" class="bubble"></div>
+      </div>
+      <div class="write">
+          <a href="javascript:void(2020);" class="write-link attach" onclick="alert('В разработке')"></a>
+          <input type="text" />
+          <a href="javascript:void(2020);" class="write-link send" onclick="alert('В разработке')"></a>
+          <a href="javascript:void(2020);" class="write-link smiley" onclick="alert('В разработке')"></a>
+      </div>
+    </div>
+    <script>
+      const request = require('request');
+      // старт, и проверка сервера
+      function reqstart () {
+        request('https://chatapi2.herokuapp.com/1', function (error, response, body) {
+          //console.clear();
+          console.log('statusCode:', response && response.statusCode);
+          if (response.statusCode == 200) {
+            reqread();
+          } else {
+            alert('О чёрт... Что-то пошло не так!');
+          }
+        });
+      }
+      // чтение
+      function reqread () {
+        request('https://chatapi2.herokuapp.com/1/read', function (error, response, body) {
+          //console.clear();
+          console.log('error:', error);
+          console.log('statusCode:', response && response.statusCode);
+          if (txtn) {
+            txtn.remove();
+          }
+          // обработка сообщения
+          chatup(body);
+        });
+        setTimeout(reqread, 300);
+      }
+      // отправка
+      function requp (user, msg) {
+        request('https://chatapi2.herokuapp.com/1/write/' + user + '/' + msg, function (error, response, body) {
+          //console.clear();
+          console.log('error:', error);
+        });
+      }
+      // добавление сообщений
+      function chatup (msg) {
+        var upmsg = '<div id="txtn" class="bubble">' + msg + '</div>';
+        box.insertAdjacentHTML("afterend", upmsg);
+      }
+      //start
+      reqstart();
+    </script>
+  </body>
+</html>
