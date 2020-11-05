@@ -8,6 +8,7 @@
     --wrapper: 1000px;
     --blue: #00b0ff;
 }
+body {background-image: linear-gradient(to top, #86377b 20%, #27273c 80%);}
 
 @keyframes move_wave {
     0% {
@@ -22,7 +23,7 @@
 }
 .waveWrapper {
     overflow: hidden;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
@@ -148,6 +149,7 @@
 
 .chat, #box {
     overflow-y: auto;
+    overflow-x: hidden;
     max-height: 80%;
 }
 .bubble {
@@ -184,3 +186,63 @@
     left: -3px;
     background-color: var(--blue);
 }
+
+.popup {
+    opacity: 0.9;
+    width: 50%;
+    height: 50%;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    border-radius: 10px;
+    z-index: 999999;
+    background-image: linear-gradient(to top, #86377b 20%, #27273c 80%);
+    box-shadow: 0 0 10px #27273c;
+    text-align: center;
+    display: none;
+}
+.popup input {
+    width: 80%;
+    margin: 30% 20px 20px 20px;
+    border: 1px solid var(--light);
+    background-color: #eceff1;
+    padding: 5px 10px;
+    color: var(--dark);
+    outline: none;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+}
+.popup button {
+    cursor: pointer;
+    width: 40%;
+    margin: 20px auto;
+    border: 1px solid var(--light);
+    background-color: #8f4285;
+    color: white;
+    padding: 5px 10px;
+    outline: none;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    transition: 1s;
+}
+.popup button:hover {
+    background-color: #5e2756;
+    box-shadow: 0 0 10px #27273c;
+}
+.chat::-webkit-scrollbar {
+	width:7px;
+	transitions: 2s;
+}
+.chat::-webkit-scrollbar-track:hover {
+    background-color:#f4f4f4;
+}
+.chat::-webkit-scrollbar-thumb {
+    background-color:#babac0;
+    border-radius:7px;
+}
+.chat::-webkit-scrollbar-thumb:hover {
+    background-color: black;
+    opacity: 0.7;
+    border:4px solid #f4f4f4;
+}
+.chat::-webkit-scrollbar-button {display:none}
