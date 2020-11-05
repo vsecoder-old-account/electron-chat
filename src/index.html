@@ -39,7 +39,10 @@
         request('https://chatapi2.herokuapp.com/1', function (error, response, body) {
           //console.clear();
           console.log('statusCode:', response && response.statusCode);
-          if (response.statusCode == 200) {
+          // тест системы
+          //error = 5;
+          //response.statusCode = 404;
+          if (response.statusCode == 200 && error == null) {
             reqread();
           } else {
             alert('О чёрт... Что-то пошло не так!');
