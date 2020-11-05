@@ -27,8 +27,8 @@
       </div>
       <div class="write">
           <a href="javascript:void(2020);" class="write-link attach" onclick="alert('В разработке')"></a>
-          <input type="text" />
-          <a href="javascript:void(2020);" class="write-link send" onclick="alert('В разработке')"></a>
+          <input type="text" id="msginput">
+          <a href="javascript:void(2020);" class="write-link send" onclick="requp()"></a>
           <a href="javascript:void(2020);" class="write-link smiley" onclick="alert('В разработке')"></a>
       </div>
     </div>
@@ -64,7 +64,11 @@
         setTimeout(reqread, 300);
       }
       // отправка
-      function requp (user, msg) {
+      function requp () {
+        //добавить получение ника с записью в localstorage
+        let user = encodeURIComponent('User457')
+        let msg = encodeURIComponent(msginput.value);
+        msg = msg.replace(/ /g, '%20');
         request('https://chatapi2.herokuapp.com/1/write/' + user + '/' + msg, function (error, response, body) {
           //console.clear();
           console.log('error:', error);
