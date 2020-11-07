@@ -5,27 +5,43 @@
     <title>Chat</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="waveWrapper waveAnimation">
       <div class="waveWrapperInner bgTop">
-        <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+        <div class="wave waveTop" style="background-image: url('img/wave-top.png')"></div>
       </div>
       <div class="waveWrapperInner bgMiddle">
-        <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+        <div class="wave waveMiddle" style="background-image: url('img/wave-mid.png')"></div>
       </div>
       <div class="waveWrapperInner bgBottom">
-        <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+        <div class="wave waveBottom" style="background-image: url('img/wave-bot.png')"></div>
       </div>
     </div>
 
     <div class="popup" id="nameup">
+      <h4>Имя: </h4>
       <input type="text" id="tname" placeholder="Всеволод" maxlength="15" minlength="3">
       <button id="username" onclick="userbtn()">Запомнить</button>
     </div>
+    <div class="popup" id="codeup">
+      <h4>Код комнаты: </h4>
+      <input type="text" id="tname1" placeholder="1" maxlength="30" minlength="1">
+      <button id="username" onclick="roombtn()">Войти</button>
+    </div>
 
     <div class="container">
-      <div class="top"></div>
+      <div class="top" id="top">
+        <h4>Код комнаты: </h4>
+        <h3 id="coderoom">/\</h3>
+        <a href="javascript:void(2020);" class="inup" onclick="popup1()">
+          <img src="img/logout.png">
+        </a>
+        <a href="javascript:void(2020);" class="inup" onclick="popup()" style="right: 20%;">
+          <img src="img/profile.png">
+        </a>
+      </div>
       <div class="chat" id="box">
         <div id="txtn" class="bubble"></div>
       </div>
