@@ -6,7 +6,7 @@
 
 
 ```bash
-  git clone https://raw.github.com/htmlcssphpjs/electron-chat.git
+  git clone https://github.com/htmlcssphpjs/electron-chat.git
   cd electron-chat
   npm i
   npm start
