@@ -2,7 +2,7 @@
 
 Чат на electron
 
-![Chat](https://raw.githubusercontent.com/htmlcssphpjs/electron-chat/main/.github/Screenshot_53.png)
+![Chat](https://raw.githubusercontent.com/htmlcssphpjs/electron-chat/main/.github/Screenshot_56.png)
 
 
 ```bash
