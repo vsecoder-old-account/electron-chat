@@ -1,4 +1,21 @@
 const request = require('request');
+var codroom = 1;
+function popup1 () {
+  codeup.style.display = "block";
+  msginput.disabled = true;
+}
+function roombtn () {
+  if (tname1.value.length >= 0 && tname1.value.length <= 30) {
+    codeup.style.display = "none";
+    //localStorage.setItem('name', tname.value);
+    msginput.disabled = false;
+    codroom = tname1.value;
+    reqstart();
+  } else {
+    alert('Поле заполнено неверно, или не заполнено!');
+  }
+}
+codroom = encodeURIComponent(codroom);
 function popup () {
   nameup.style.display = "block";
   msginput.disabled = true;
@@ -14,7 +31,24 @@ function userbtn () {
 }
 // старт, и проверка сервера
 function reqstart () {
-  request('https://chatapi2.herokuapp.com/1', function (error, response, body) {
+  while (coderoom.firstChild) {
+    coderoom.removeChild(coderoom.lastChild);
+  }
+  coderoom.insertAdjacentHTML("beforeend", codroom);
+  let test = localStorage.getItem('name');
+  if (test == null) {
+    popup();
+  } else {
+    console.log('👍');
+  }
+  const myNotification = new Notification('Добро пожаловать', {
+    body: 'Приветствую в чате' + test + '!'
+  });
+  
+  myNotification.onclick = () => {
+    console.log('Notification clicked');
+  }
+  request('https://chatapi2.herokuapp.com/' + codroom, function (error, response, body) {
     //console.clear();
     console.log('statusCode:', response && response.statusCode);
     // тест системы
@@ -26,17 +60,11 @@ function reqstart () {
       alert('О чёрт... Что-то пошло не так!');
     }
   });
-  let test = localStorage.getItem('name');
-  if (test == null) {
-    popup();
-  } else {
-    console.log('👍');
-  }
   box.scrollTop = 1000000;
 }
 // чтение
 function reqread () {
-  request('https://chatapi2.herokuapp.com/1/read', function (error, response, body) {
+  request('https://chatapi2.herokuapp.com/' + codroom + '/read', function (error, response, body) {
     //console.clear();
     console.log('error:', error);
     console.log('statusCode:', response && response.statusCode);
@@ -59,7 +87,7 @@ function requp () {
   let msg = encodeURIComponent(msginput.value);
   msg = msg.replace(/ /g, '%20');
   if (msg != "") {
-    request('https://chatapi2.herokuapp.com/1/write/' + user + '/' + msg, function (error, response, body) {
+    request('https://chatapi2.herokuapp.com/' + codroom + '/write/' + user + '/' + msg, function (error, response, body) {
       //console.clear();
       console.log('error:', error);
     });
